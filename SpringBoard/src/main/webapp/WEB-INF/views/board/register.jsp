@@ -10,15 +10,15 @@
 		<div class="box-body">
 			<div class="form-group">
 				<label for="exampleInputEmail1">제 목</label> 
-				<input type="text" class="form-control" id="exampleInputEmail1" placeholder="제목을 작성하세요!">
+				<input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="제목을 작성하세요!">
 			</div>
 			<div class="form-group">
 				<label>이름</label> 
-				<input type="text" class="form-control" placeholder="이름을 입력하세요">
+				<input type="text" name="writer" class="form-control" placeholder="이름을 입력하세요">
 			</div>
 			<div class="form-group">
 				<label>내용</label>
-				<textarea class="form-control" rows="3" placeholder="내용을 입력하세요"></textarea>
+				<textarea name="content" class="form-control" rows="3" placeholder="내용을 입력하세요"></textarea>
 			</div>
 		</div>
 		<div class="box-footer">
