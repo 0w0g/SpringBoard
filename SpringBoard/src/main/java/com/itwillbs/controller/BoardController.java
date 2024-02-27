@@ -1,15 +1,21 @@
 package com.itwillbs.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.BoardVO;
-import com.itwillbs.persistence.BoardDAO;
 import com.itwillbs.service.BoardService;
 
 @Controller
@@ -38,7 +44,7 @@ public class BoardController {
 		
 		// 한글처리(필터) 생략
 		// 전달정보(글 정보) 저장
-		logger.debug(" 전달정보 : "+vo);
+		logger.debug(" 전달정보 : "+vo.toString());
 		
 		// 서비스 -> DAO 글쓰기 동작 호출 
 		bService.regist(vo);
@@ -46,7 +52,39 @@ public class BoardController {
 		logger.debug(" 글쓰기 완료! -> 리스트 페이지로 이동 ");
 		
 		// 페이지 이동 (list) 
-		return "rediret:/board/list";
+		return "redirect:/board/list";
+	}
+	
+	// 리스트GET : /board/List;
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public void listGET(Model model) throws Exception{
+		logger.debug(" /board/list -> listGET()실행 ");
+		logger.debug(" 서비스 실행 ");
+		// 서비스 -> 게시판 글 목록 가져오기
+		List<BoardVO> boardList = bService.getList();
+		logger.debug(" list.size : "+boardList.size());
+		// 연결됨 뷰페이지에 정보 전달
+		model.addAttribute("boardList",boardList);
+	}
+	
+	@RequestMapping(value="/read", method = RequestMethod.GET)
+	public void readGET(@RequestParam("bno") int bno, Model model) throws Exception{
+		// @ModelAttribute : 파라메터 저장 + 영역 저장 (1:N 관계)
+		// @RequestParam : 파라메터 저장 (1:1 관계)
+		// int bno로 받아와도 ㄱㅊ 
+		
+		logger.debug(" /board/read -> readGET() 호출 ");
+		
+		// 전달정보 저장
+		logger.debug(" bno : "+bno);
+		
+		// 서비스 -> DAO 게시판 글정보 조회 동작
+		BoardVO resultVO = bService.getBoard(bno);
+		logger.debug("resultVO : "+resultVO.toString());
+		// 해당정보를 저장 -> 연결된 뷰페이지로 전달
+		model.addAttribute("boardVO", resultVO);
+		// 뷰페이지로 이동
+			
 	}
 	
 
