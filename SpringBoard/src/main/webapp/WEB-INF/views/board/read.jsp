@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ include file="../include/header.jsp"%>
 <div class="content">
+	<h1>read.jsp</h1>
+	<form role="form" action="" method="get" class="fm">
+		<input type="hidden" name="bno" value="${boardVO.bno }">
+	</form>
 	<div class="box">
 		<div class="box box-primary">
 			<div class="box-body no-padding">
@@ -19,24 +22,41 @@
 				<div class="pull-right">
 					<button type="submit" class="btn btn-success">목록이동</button>
 				</div>
-				<button type="button" class="btn btn-default">
-					<i class="fa fa-trash-o"></i> Delete
+				<button type="button" class="btn btn-default" id="delete">
+					<i class="fa fa-fw fa-trash"></i>Delete
 				</button>
-				<button type="button" class="btn btn-default">
-					<i class="fa fa-print"></i> Update
+				<button type="button" class="btn btn-default" id="update">
+					<i class="fa fa-fw fa-pencil-square-o"></i>Update
 				</button>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- JQuery 사용 -->
-
 <script>
 	$(document).ready(function() {
+
+		//bno를 저장하는 폼태그 정보
+		//console.log($("form[role='form']"));
+		var formObj = $("form[role='form']");
+
+		$("#update").click(function() {
+			alert(" 수정하기 버튼 클릭 ! ");
+			formObj.attr("action", "/board/modify");
+			formObj.submit();
+		});
+		
+		$("#delete").click(function() {
+			confirm(" 삭제하시겠습니까? ");
+			formObj.attr("action", "/board/delete");
+			formObj.submit();
+		});
+
+
 		$(".btn-success").click(function() {
 			alert(" '목록이동' 버튼 클릭! ");
 			//목록으로 이동
-			location.href="/board/list";
+			location.href = "/board/list";
 		});
 	});
 </script>
