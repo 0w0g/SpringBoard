@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 import com.itwillbs.persistence.BoardDAO;
 
 // 컨트롤러와 DAO를 연결하는 역할
@@ -30,5 +31,13 @@ public interface BoardService {
 	
 	// 글 삭제
 	public void deleteBoard(int bno) throws Exception;
+	
+	// 글 목록 조회 동작(페이징처리 - cri)
+	public List<BoardVO> getListCri(Criteria cri) throws Exception;
+	
+	// 총 글의 갯수
+	public int getBoardlistCount() throws Exception;
+	
+	
 
 }

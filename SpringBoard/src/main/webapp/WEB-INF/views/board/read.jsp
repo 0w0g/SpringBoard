@@ -2,10 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/header.jsp"%>
+viewUpdateStatus : ${viewUpdateStatus } <br>
+cri : ${cri }
 <div class="content">
 	<h1>read.jsp</h1>
 	<form role="form" action="" method="get" class="fm">
 		<input type="hidden" name="bno" value="${boardVO.bno }">
+		<!-- 페이징처리정보 -->
+	   <input type="hidden" name="page" value="${cri.page }">
+	   <input type="hidden" name="pageSize" value="${cri.pageSize }">
 	</form>
 	<div class="box">
 		<div class="box box-primary">
@@ -56,7 +61,7 @@
 		$(".btn-success").click(function() {
 			alert(" '목록이동' 버튼 클릭! ");
 			//목록으로 이동
-			location.href = "/board/list";
+			location.href="/board/listCri?page=${cri.page}&pageSize=${param.pageSize}";
 		});
 	});
 </script>
